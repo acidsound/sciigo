@@ -1,0 +1,8 @@
+/* CSS declarations go here */
+li {
+	list-style: none;
+}
+
+ul {
+	margin:0;
+}
