@@ -15,7 +15,7 @@ Sciigo means in esperanto "message".
 1. git clone
 1. meteor add bootstrap accounts-facebook accounts-ui
 1. meteor run -or- meteor --production
-1. http://local.host:3000
+1. http://localhost:3000
 
 ### TODO
 
