@@ -17,7 +17,7 @@ Template.hello.events = {
 Template.hello.messages = function() {
 	return Messages.find().map(function(user) {
 		if (Meteor.user()) {
-			user.userType = user.userName === Meteor.user().name ? "success":"";
+			user.userType = user.userName === Meteor.user().profile.name ? "success":"";
 		}
 		return user;
 	});
