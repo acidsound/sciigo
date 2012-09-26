@@ -3,30 +3,42 @@
 </head>
 
 <body>
-  {{> hello}}
+{{> hello}}
 </body>
 
 <template name="hello">
-	<div class="pull-right">
-		{{> loginButtons}}
-	</div>
-	<div class="well">
-	  <h1>Hello Sciigo!</h1>
-	  <p>서버 오픈 시각 : {{uptime}}</p>
-	</div>
-  {{greeting}}
-  <input type="button" value="Click" class="btn"/>
-  <hr/>
+  <div class="pull-right">
+    {{> loginButtons}}
+  </div>
+  <div class="well">
+    <h1>Hello Sciigo!</h1>
+
+    <p>서버 오픈 시각 : {{uptime}}</p>
+  </div>
+  {{#if loginUser}}
+  {{> formMessage}}
+  {{/if}}
   <ul>
-  	{{#each messages}}
-  	<li class="row">
-	  	<div class="span2">
-	  		<label class="label label-{{userType}}">{{userName}}}</label>
-	  	</div>
-	  	<div class="span10">
-	  		<span>{{message}}}</span>
-	  	</div>
-  	</li>
-  	{{/each}}
-	</ul>
+    {{#each messages}}
+    <li class="row">
+      <div class="span2">
+        <label class="label label-{{userType}}">{{userName}}}</label>
+      </div>
+      <div class="span8">
+        <span>{{message}}}</span>
+      </div>
+      <div class="span2 timeago">{{timeAgo}}</div>
+    </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="formMessage">
+  <form class="form-inline" action="#">
+    <label class="control-label" for="inputMessage">
+      {{userName}}
+    </label>
+    <input type="text" id="inputMessage" class="input-xxlarge" placeholder="어서 말을 해">
+    <button type="submit" class="btn"><i class="icon-pencil"></i></button>
+  </form>
 </template>
