@@ -22,11 +22,13 @@ Template.formMessage.userName = function () {
   return Meteor.user() && Meteor.user().profile ? Meteor.user().profile.name : '';
 }
 
+// salt for preserve input element
 Template.formMessage.preserve({
   'input[id]': function (node) {
     return node.id;
   }
 });
+
 Template.formMessage.events = {
   'submit':function () {
     Messages.insert({
@@ -34,9 +36,7 @@ Template.formMessage.events = {
       message:$('input#inputMessage').val(),
       createTime: Date.now()
     });
-    $('input#inputMessage').val('');
-    $('input#inputMessage').focus();
-    Meteor.flush();
+    $('input#inputMessage').val('').focus();
   }
 }
 Session.set('count', 0);
