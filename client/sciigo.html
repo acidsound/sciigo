@@ -34,11 +34,15 @@
 </template>
 
 <template name="formMessage">
-  <form class="form-inline" action="#">
-    <label class="control-label" for="inputMessage">
+  <form class="form-inline row" action="javascript:;">
+    <label class="span2 control-label" for="inputMessage">
       {{userName}}
     </label>
-    <input type="text" id="inputMessage" class="input-xxlarge" placeholder="어서 말을 해">
-    <button type="submit" class="btn"><i class="icon-pencil"></i></button>
+    <div class="span8">
+      <input type="text" id="inputMessage" class="input-xxlarge" placeholder="어서 말을 해">
+    </div>
+    <div class="span2">
+      <button type="submit" class="btn"><i class="icon-pencil"></i></button>
+    </div>
   </form>
 </template>
