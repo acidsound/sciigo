@@ -1,10 +1,12 @@
-Template.hello.greeting = function () {
-  return '세미나에 어서오세요. 제발  ' + Session.get('count') + '번만요';
-};
-Template.hello.uptime = function () {
+Template.head.uptime = function () {
   return moment().format('YYYY/MM/DD hh:mm:ss');
 };
-Template.hello.messages = function () {
+
+Template.head.ROOT_URL = function() {
+  return __meteor_runtime_config__.ROOT_URL;
+};
+
+Template.main.messages = function () {
   return Messages.find({},{sort:{createTime:-1}}).map(function (message) {
     if (Meteor.user()) {
       message.userType = message.userName === Meteor.user().profile.name ? 'success' : '';
@@ -14,7 +16,7 @@ Template.hello.messages = function () {
   });
 }
 
-Template.hello.loginUser = function () {
+Template.main.loginUser = function () {
   return Meteor.user() && Meteor.user().profile ? Meteor.user().profile.name : '';
 }
 

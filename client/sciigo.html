@@ -3,18 +3,21 @@
 </head>
 
 <body>
-{{> hello}}
+{{> head}}
+{{> main}}
 </body>
-
-<template name="hello">
+<template name="head">
   <div class="pull-right">
     {{> loginButtons}}
   </div>
   <div class="well">
     <h1>Hello Sciigo!</h1>
-
+    <p>이 서버는 {{ROOT_URL}}에서 동작 중입니다.</p>
     <p>서버 오픈 시각 : {{uptime}}</p>
   </div>
+</template>
+
+<template name="main">
   {{#if loginUser}}
   {{> formMessage}}
   {{/if}}
