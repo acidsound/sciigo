@@ -35,8 +35,7 @@ Template.formMessage.events = {
   'submit':function () {
     Messages.insert({
       userName:Meteor.user().profile.name,
-      message:$('input#inputMessage').val(),
-      createTime: Date.now()
+      message:$('input#inputMessage').val()
     });
     $('input#inputMessage').val('').focus();
   }
