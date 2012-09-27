@@ -33,9 +33,12 @@ Template.formMessage.preserve({
 
 Template.formMessage.events = {
   'submit':function () {
+	var messageBox = $('input#inputMessage');
+	if(messageBox.val() == "") return;
+
     Messages.insert({
       userName:Meteor.user().profile.name,
-      message:$('input#inputMessage').val()
+      message:messageBox.val()
     });
     $('input#inputMessage').val('').focus();
   }
