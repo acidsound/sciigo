@@ -3,6 +3,14 @@ Meteor.startup(function () {
   console.log('server initiated.');
   console.log('have fun with meteor');
   console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
+
+  Messages.allow({
+	  insert: function(id, doc) {
+		  doc.createTime = Date.now();
+		  return true;
+	  }
+  });
+
   if (!Meteor.accounts.configuration.find().count()) {
     Meteor.accounts.configuration.insert(
       __meteor_runtime_config__.ROOT_URL==='http://localhost:3000' ?
