@@ -1,12 +1,16 @@
 /* CSS declarations go here */
 li {
-	list-style: none;
+  list-style: none;
 }
 
 ul {
-	margin:0;
+  margin: 0;
 }
 
 .timeago {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+* {
+  -webkit-tap-hight-color: rgba(0, 0, 0, 0);
 }
