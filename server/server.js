@@ -3,19 +3,25 @@ Meteor.startup(function () {
   console.log('server initiated.');
   console.log('have fun with meteor');
   console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
+  isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
 
-  Messages.allow({
-	  insert: function(id, doc) {
-		  doc.createTime = Date.now();
-		  return true;
-	  }
+  Meteor.methods({
+    "create_message":function (user, message) {
+      if (!!message) {
+        return Messages.insert({
+          userName:user.profile.name,
+          message:message,
+          createTime: Date.now()
+        });
+      }
+      return null;
+    }
   });
 
   if (!Meteor.accounts.configuration.find().count()) {
-    config[__meteor_runtime_config__.ROOT_URL==='http://localhost:3000'
-      ? "test" : "prod"].services.forEach(function(service) {
-        console.dir(service);
-        Meteor.accounts.configuration.insert(service);
+    config[isTest ? "test" : "prod"].services.forEach(function (service) {
+      console.dir(service);
+      Meteor.accounts.configuration.insert(service);
     });
   }
 });

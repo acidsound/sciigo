@@ -34,13 +34,10 @@ Template.formMessage.preserve({
 Template.formMessage.events = {
   'submit':function () {
     var messageBox = $('input#inputMessage');
-    if (messageBox.val()) {
-      Messages.insert({
-        userName:Meteor.user().profile.name,
-        message:messageBox.val()
-      });
-      $('input#inputMessage').val('').focus();
-    }
+    Meteor.call("create_message", Meteor.user(), messageBox.val(), function(error, messageId) {
+      if (!error)
+        $('input#inputMessage').val('').focus();
+    });
   }
 }
 Session.set('count', 0);
