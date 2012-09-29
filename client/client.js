@@ -14,7 +14,7 @@ Template.main.messages = function () {
     message.timeAgo = moment(message.createTime).fromNow();
     return message;
   });
-}
+};
 
 // salt for preserve input element
 Template.formMessage.preserve({
@@ -26,7 +26,7 @@ Template.formMessage.preserve({
 Template.formMessage.events = {
   'submit':function () {
     var messageBox = $('input#inputMessage');
-    Meteor.call("create_message", Meteor.user(), messageBox.val(), function(error, messageId) {
+    Meteor.call("create_message", Meteor.user(), messageBox.val(), function (error, messageId) {
       if (!error)
         $('input#inputMessage').val('').focus();
     });
@@ -34,10 +34,10 @@ Template.formMessage.events = {
 };
 
 Template.login.events = {
-  'click #logout': function() {
+  'click #logout':function () {
     Meteor.logout();
   },
-  'click #loginFB' : function() {
+  'click #loginFB':function () {
     Meteor.loginWithFacebook();
   }
-}
+};

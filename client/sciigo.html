@@ -72,7 +72,7 @@
           <label class="label label-{{userType}}">{{userName}}}</label>
         </div>
         <div class="span8">
-          <span>{{message}}}</span>
+          <span>{{{message}}}</span>
         </div>
         <div class="span2 timeago">{{timeAgo}}</div>
       </li>
@@ -85,9 +85,9 @@
   <li class="row">
     <form action="javascript:;">
       <div class="span2">
-       <label class="label label-warning" for="inputMessage">
-         {{currentUser.profile.name}}
-       </label>
+        <label class="label label-warning" for="inputMessage">
+          {{currentUser.profile.name}}
+        </label>
       </div>
       <div class="span8">
         <input type="text" id="inputMessage" class="input-xxlarge" placeholder="어서 말을 해">
