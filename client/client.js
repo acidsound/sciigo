@@ -10,8 +10,8 @@ Template.main.messages = function () {
   return Messages.find({}, {sort:{createTime:-1}}).map(function (message) {
     if (Meteor.user()) {
       message.userType = message.userName === Meteor.user().profile.name ? 'success' : '';
-      message.timeAgo = moment(message.createTime).fromNow();
     }
+    message.timeAgo = moment(message.createTime).fromNow();
     return message;
   });
 }
