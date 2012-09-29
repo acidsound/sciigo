@@ -36,9 +36,9 @@
 
 <template name="login">
   <div class="btn-group pull-right">
-    {{#if userName}}
+    {{#if currentUser}}
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <i class="icon-user"></i> {{userName}}
+      <i class="icon-user"></i> {{currentUser.profile.name}}
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
@@ -63,7 +63,7 @@
       <p>서버 오픈 시각 : {{uptime}}</p>
     </div>
     <ul>
-      {{#if loginUser}}
+      {{#if currentUser}}
       {{> formMessage}}
       {{/if}}
       {{#each messages}}
@@ -86,7 +86,7 @@
     <form action="javascript:;">
       <div class="span2">
        <label class="label label-warning" for="inputMessage">
-         {{userName}}
+         {{currentUser.profile.name}}
        </label>
       </div>
       <div class="span8">

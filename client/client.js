@@ -16,14 +16,6 @@ Template.main.messages = function () {
   });
 }
 
-Template.main.loginUser = function () {
-  return Meteor.user() && Meteor.user().profile ? Meteor.user().profile.name : '';
-}
-
-Template.formMessage.userName = function () {
-  return Meteor.user() && Meteor.user().profile ? Meteor.user().profile.name : '';
-}
-
 // salt for preserve input element
 Template.formMessage.preserve({
   'input[id]':function (node) {
@@ -39,11 +31,6 @@ Template.formMessage.events = {
         $('input#inputMessage').val('').focus();
     });
   }
-};
-
-Template.login.userName = function() {
-  return (Meteor.user() && Meteor.user().profile) ?
-    Meteor.user().profile.name : null;
 };
 
 Template.login.events = {
