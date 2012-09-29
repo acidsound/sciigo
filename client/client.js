@@ -1,8 +1,8 @@
-Template.head.uptime = function () {
+Template.main.uptime = function () {
   return moment().format('YYYY/MM/DD hh:mm:ss');
 };
 
-Template.head.ROOT_URL = function () {
+Template.main.ROOT_URL = function () {
   return __meteor_runtime_config__.ROOT_URL;
 };
 
@@ -39,5 +39,18 @@ Template.formMessage.events = {
         $('input#inputMessage').val('').focus();
     });
   }
+};
+
+Template.login.userName = function() {
+  return (Meteor.user() && Meteor.user().profile) ?
+    Meteor.user().profile.name : null;
+};
+
+Template.login.events = {
+  'click #logout': function() {
+    Meteor.logout();
+  },
+  'click #loginFB' : function() {
+    Meteor.loginWithFacebook();
+  }
 }
-Session.set('count', 0);

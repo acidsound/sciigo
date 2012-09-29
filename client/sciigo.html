@@ -10,34 +10,75 @@
 {{> head}}
 {{> main}}
 </body>
+
 <template name="head">
-  <div class="pull-right">
-    {{> loginButtons}}
-  </div>
-  <div class="well">
-    <h1>Hello Sciigo!</h1>
-    <p>이 서버는 {{ROOT_URL}}에서 동작 중입니다.</p>
-    <p>서버 오픈 시각 : {{uptime}}</p>
+  <header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/"><b>Sciigo</b></a>
+        {{> login}}
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active"><a>Home</a></li>
+            <li><a href="#">about</a></li>
+          </ul>
+        </div>
+        <!--/.nav-collapse -->
+      </div>
+    </div>
+  </header>
+</template>
+
+<template name="login">
+  <div class="btn-group pull-right">
+    {{#if userName}}
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <i class="icon-user"></i> {{userName}}
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a id="logout">Sign Out</a></li>
+    </ul>
+    {{else}}
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+      <i class="icon-user"></i> Sign in/up
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a id="loginFB" href="#">Login with Facebook</a></li>
+    </ul>
+    {{/if}}
   </div>
 </template>
 
 <template name="main">
-  <ul>
-    {{#if loginUser}}
-    {{> formMessage}}
-    {{/if}}
-    {{#each messages}}
-    <li class="row">
-      <div class="span2">
-        <label class="label label-{{userType}}">{{userName}}}</label>
-      </div>
-      <div class="span8">
-        <span>{{message}}}</span>
-      </div>
-      <div class="span2 timeago">{{timeAgo}}</div>
-    </li>
-    {{/each}}
-  </ul>
+  <div class="container">
+    <div class="well">
+      <p>이 서버는 {{ROOT_URL}}에서 동작 중입니다.</p>
+      <p>서버 오픈 시각 : {{uptime}}</p>
+    </div>
+    <ul>
+      {{#if loginUser}}
+      {{> formMessage}}
+      {{/if}}
+      {{#each messages}}
+      <li class="row">
+        <div class="span2">
+          <label class="label label-{{userType}}">{{userName}}}</label>
+        </div>
+        <div class="span8">
+          <span>{{message}}}</span>
+        </div>
+        <div class="span2 timeago">{{timeAgo}}</div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
 </template>
 
 <template name="formMessage">

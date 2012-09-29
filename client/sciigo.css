@@ -14,3 +14,14 @@ ul {
 * {
   -webkit-tap-hight-color: rgba(0, 0, 0, 0);
 }
+
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
