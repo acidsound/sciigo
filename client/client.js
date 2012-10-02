@@ -41,3 +41,8 @@ Template.login.events = {
     Meteor.loginWithFacebook();
   }
 };
+
+/* subscribe */
+Meteor.autosubscribe(function() {
+  Meteor.subscribe('messages', Session.get('page'));
+});

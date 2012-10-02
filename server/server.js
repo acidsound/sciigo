@@ -24,4 +24,12 @@ Meteor.startup(function () {
       Meteor.accounts.configuration.insert(service);
     });
   }
+
+  Meteor.publish('messages', function(page) {
+    if (page) {
+      return Messages.find({"page":page}, {sort:{createTime:-1}});
+    } else {
+      return Messages.find({}, {sort:{createTime:-1}});
+    }
+  });
 });
