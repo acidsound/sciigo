@@ -36,19 +36,15 @@ Template.formMessage.events = {
 Template.login.events = {
   'click #logout':function () {
     Meteor.logout();
-	return false;
   },
   'touchend #logout':function () {
 	Meteor.logout();
-	return false;
   },
   'click #loginFB':function () {
     Meteor.loginWithFacebook();
-	return false;
   },
   'touchend #loginFB':function () {
     Meteor.loginWithFacebook();
-    return false;
   }
 };
 
