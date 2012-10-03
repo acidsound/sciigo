@@ -4,18 +4,9 @@ Template.head.events = {
   }
 };
 
-Template.main.created = function () {
-  Meteor.call("getServerStartTime", function (error, startTime) {
-    /* global variable */
-    if (!error) {
-      Session.set('startTime', moment(startTime).format('YYYY/MM/DD HH:mm:ss'));
-    }
-  });
-};
-
 Template.main.startTime = function () {
-  console.log('get startTime %s', window.startTime);
-  return Session.get('startTime');
+  var stime = ServerTime.findOne();
+  return stime ? moment(stime.startTime).format('YYYY/MM/DD HH:mm:ss') : '';
 };
 
 Template.main.ROOT_URL = function () {
@@ -86,6 +77,7 @@ Template.login.events = {
 /* subscribe */
 Meteor.autosubscribe(function () {
   Meteor.subscribe('messages', Session.get('page'));
+  Meteor.subscribe('serverTime');
 });
 
 /* backbone router */

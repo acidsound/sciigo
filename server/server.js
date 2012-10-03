@@ -1,10 +1,12 @@
 Meteor.startup(function () {
   // code to run on server at startup
-  console.log('server initiated.');
-  console.log('have fun with meteor');
+  startTime = Date.now();
+  ServerTime.insert({'startTime':startTime});
+  console.log('server initiated at %s.',
+    (new Date(startTime)).toISOString()
+  );
   console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
-  isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
-  var serverStartTime = Date.now();
+  var isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
   Meteor.methods({
     "create_message":function (msg) {
       if (!!msg.message) {
@@ -20,7 +22,7 @@ Meteor.startup(function () {
       }
       return null;
     },
-    "getServerStartTime" : function() {
+    "getServerStartTime":function () {
       return serverStartTime;
     }
   });
@@ -38,5 +40,9 @@ Meteor.startup(function () {
     } else {
       return Messages.find({}, {sort:{createTime:-1}});
     }
+  });
+
+  Meteor.publish('serverTime', function () {
+    return ServerTime.find({}, {sort:{startTime:-1}, limit:1});
   });
 });
