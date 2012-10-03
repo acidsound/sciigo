@@ -33,22 +33,22 @@ Template.formMessage.events = {
   }
 };
 
+var loginWithFacebook = function () {
+  Meteor.loginWithFacebook();
+};
+
+var logout = function () {
+  Meteor.logout();
+};
+
 Template.login.events = {
-  'click #logout':function () {
-    Meteor.logout();
-  },
-  'touchend #logout':function () {
-	Meteor.logout();
-  },
-  'click #loginFB':function () {
-    Meteor.loginWithFacebook();
-  },
-  'touchend #loginFB':function () {
-    Meteor.loginWithFacebook();
-  }
+  'click #logout':logout,
+  'touchend #logout':logout,
+  'click #loginFB':loginWithFacebook,
+  'touchend #loginFB':loginWithFacebook
 };
 
 /* subscribe */
-Meteor.autosubscribe(function() {
+Meteor.autosubscribe(function () {
   Meteor.subscribe('messages', Session.get('page'));
 });
