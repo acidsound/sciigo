@@ -26,11 +26,11 @@ Template.formMessage.preserve({
 Template.formMessage.events = {
   'submit':function () {
     var messageBox = $('input#inputMessage');
-	if(messageBox.val()) {
-	  Meteor.call("create_message", Meteor.user(), messageBox.val(), function (error, messageId) {
-	    if (!error) $('input#inputMessage').val('').focus();
-	  });
-	}
+    if (messageBox.val()) {
+      Meteor.call("create_message", Meteor.user(), messageBox.val(), function (error, messageId) {
+        if (!error) $('input#inputMessage').val('').focus();
+      });
+    }
   }
 };
 
