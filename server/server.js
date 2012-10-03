@@ -4,7 +4,7 @@ Meteor.startup(function () {
   console.log('have fun with meteor');
   console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
   isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
-
+  var serverStartTime = Date.now();
   Meteor.methods({
     "create_message":function (msg) {
       if (!!msg.message) {
@@ -19,6 +19,9 @@ Meteor.startup(function () {
         return Messages.insert(row);
       }
       return null;
+    },
+    "getServerStartTime" : function() {
+      return serverStartTime;
     }
   });
 

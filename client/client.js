@@ -2,9 +2,10 @@ Template.head.events = {
   'click .brand': function() {
     Router.setPage('');
   }
-}
-Template.main.uptime = function () {
-  return moment().format('YYYY/MM/DD hh:mm:ss');
+};
+
+Template.main.startTime = function () {
+  return window.startTime;
 };
 
 Template.main.ROOT_URL = function () {
@@ -99,6 +100,14 @@ var sciigoRouter = Backbone.Router.extend({
 Router = new sciigoRouter();
 Meteor.startup(function () {
   Backbone.history.start({pushState:true});
+
+  Meteor.call("getServerStartTime", function (error, startTime) {
+    if (!error)
+      console.log(startTime, !error);
+    /* global variable */
+    window.startTime = moment(startTime).format('YYYY/MM/DD hh:mm:ss');
+  });
+
 });
 
 /* helpers */
