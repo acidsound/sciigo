@@ -1,3 +1,8 @@
+Template.head.events = {
+  'click .brand': function() {
+    Router.setPage('');
+  }
+}
 Template.main.uptime = function () {
   return moment().format('YYYY/MM/DD hh:mm:ss');
 };
@@ -18,7 +23,6 @@ Template.main.messages = function () {
 
 Template.main.events = {
   'click .page': function() {
-    console.log(this);
     Router.setPage(this.page);
   }
 };
@@ -86,9 +90,8 @@ var sciigoRouter = Backbone.Router.extend({
     Session.set('page', decodeURIComponent(page));
   },
   setPage:function (page) {
-    console.log('set page:%s', page);
     Session.set('page', page);
-    this.navigate('/page/'+page, true);
+    this.navigate(page ? '/page/'+page : '', true);
     backToTop();
   }
 });
