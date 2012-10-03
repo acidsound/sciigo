@@ -6,13 +6,17 @@ Meteor.startup(function () {
   isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
 
   Meteor.methods({
-    "create_message":function (user, message) {
-      if (!!message) {
-        return Messages.insert({
-          userName:user.profile.name,
-          message:message,
-          createTime: Date.now()
-        });
+    "create_message":function (msg) {
+      if (!!msg.message) {
+        var row = {
+          userName:msg.user.profile.name,
+          message:msg.message,
+          createTime:Date.now()
+        };
+        if (msg.page) {
+          row.page = msg.page;
+        }
+        return Messages.insert(row);
       }
       return null;
     }
@@ -25,7 +29,7 @@ Meteor.startup(function () {
     });
   }
 
-  Meteor.publish('messages', function(page) {
+  Meteor.publish('messages', function (page) {
     if (page) {
       return Messages.find({"page":page}, {sort:{createTime:-1}});
     } else {
