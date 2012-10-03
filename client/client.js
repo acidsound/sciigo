@@ -1,11 +1,21 @@
 Template.head.events = {
-  'click .brand': function() {
+  'click .brand':function () {
     Router.setPage('');
   }
 };
 
+Template.main.created = function () {
+  Meteor.call("getServerStartTime", function (error, startTime) {
+    /* global variable */
+    if (!error) {
+      Session.set('startTime', moment(startTime).format('YYYY/MM/DD HH:mm:ss'));
+    }
+  });
+};
+
 Template.main.startTime = function () {
-  return window.startTime;
+  console.log('get startTime %s', window.startTime);
+  return Session.get('startTime');
 };
 
 Template.main.ROOT_URL = function () {
@@ -23,7 +33,7 @@ Template.main.messages = function () {
 };
 
 Template.main.events = {
-  'click .page': function() {
+  'click .page':function () {
     Router.setPage(this.page);
   }
 };
@@ -62,7 +72,7 @@ var logout = function () {
   Meteor.logout();
 };
 
-backToTop = function() {
+backToTop = function () {
   $('body,html').animate({scrollTop:0}, 400, 'swing');
 }
 
@@ -92,7 +102,7 @@ var sciigoRouter = Backbone.Router.extend({
   },
   setPage:function (page) {
     Session.set('page', page);
-    this.navigate(page ? '/page/'+page : '', true);
+    this.navigate(page ? '/page/' + page : '', true);
     backToTop();
   }
 });
@@ -100,21 +110,13 @@ var sciigoRouter = Backbone.Router.extend({
 Router = new sciigoRouter();
 Meteor.startup(function () {
   Backbone.history.start({pushState:true});
-
-  Meteor.call("getServerStartTime", function (error, startTime) {
-    if (!error)
-      console.log(startTime, !error);
-    /* global variable */
-    window.startTime = moment(startTime).format('YYYY/MM/DD hh:mm:ss');
-  });
-
 });
 
 /* helpers */
-Handlebars.registerHelper('pageName', function() {
+Handlebars.registerHelper('pageName', function () {
   return Session.get('page');
 });
 
-Handlebars.registerHelper('isLogin', function() {
+Handlebars.registerHelper('isLogin', function () {
   return Meteor.user() && Meteor.user().profile;
 });
