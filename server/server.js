@@ -27,6 +27,7 @@ Meteor.startup(function () {
     }
   });
 
+  /* Meteor.accounts -> Accounts 로 변경 */
   if (!Accounts.configuration.find().count()) {
     config[isTest ? "test" : "prod"].services.forEach(function (service) {
       console.dir(service);
