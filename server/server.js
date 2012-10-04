@@ -27,11 +27,15 @@ Meteor.startup(function () {
         if (msg.page) {
           row.page = msg.page;
         }
+        return Messages.insert(row);
       }
       return null;
     },
     "getServerStartTime":function () {
-      return serverStartTime;
+      return Date.now();
+    },
+    "getCount":function (page) {
+      return Messages.find(page ? {'page':page} : {}).count();
     }
   });
 
