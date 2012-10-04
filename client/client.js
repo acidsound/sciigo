@@ -70,9 +70,7 @@ backToTop = function () {
 
 Template.login.events = {
   'click #logout':logout,
-  'touchend #logout':logout,
-  'click #loginFB':loginWithFacebook,
-  'touchend #loginFB':loginWithFacebook
+  'click #loginFB':loginWithFacebook
 };
 
 /* subscribe */
@@ -113,3 +111,17 @@ Handlebars.registerHelper('pageName', function () {
 Handlebars.registerHelper('isLogin', function () {
   return Meteor.user() && Meteor.user().profile;
 });
+
+/* automap click event to touchstart */
+for (tpl in Template) {
+  var obj = Template[tpl];
+  if (obj.events && (typeof obj.events === 'object')) {
+    for (event in obj.events) {
+      var args = event.split(' ');
+      if (args[0] === 'click') {
+        args[0] = 'touchend';
+        obj.events[args.join(' ')] = obj.events[event];
+      }
+    }
+  }
+}
