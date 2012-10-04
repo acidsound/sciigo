@@ -76,6 +76,9 @@
       <li class="row">
         <div class="span2">
           <label class="label label-{{userType}}">{{userName}}}</label>
+        </div>
+        <div class="span8">
+          <span>{{{message}}}</span>
           {{#unless pageName}}
           {{#if page}}
           <span class="pull-right">
@@ -83,9 +86,6 @@
           </span>
           {{/if}}
           {{/unless}}
-        </div>
-        <div class="span8">
-          <span>{{{message}}}</span>
         </div>
         <div class="span2 timeago">{{timeAgo}}</div>
       </li>
