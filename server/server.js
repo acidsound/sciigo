@@ -27,10 +27,10 @@ Meteor.startup(function () {
     }
   });
 
-  if (!Meteor.accounts.configuration.find().count()) {
+  if (!Accounts.configuration.find().count()) {
     config[isTest ? "test" : "prod"].services.forEach(function (service) {
       console.dir(service);
-      Meteor.accounts.configuration.insert(service);
+      Accounts.configuration.insert(service);
     });
   }
 
