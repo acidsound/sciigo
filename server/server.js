@@ -27,9 +27,6 @@ Meteor.startup(function () {
         if (msg.page) {
           row.page = msg.page;
         }
-        // simulate sleep
-        for (var t = Date.now(); Date.now() < t + 2000;);
-        return Messages.insert(row);
       }
       return null;
     },
