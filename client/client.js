@@ -49,8 +49,9 @@ Template.formMessage.events = {
         message.page = page;
       }
       Meteor.call("create_message", message, function (error, messageId) {
-        if (!error) $('input#inputMessage').val('').focus();
+        if (!error) messageBox.focus();
       });
+      messageBox.val('');
     }
   }
 };
