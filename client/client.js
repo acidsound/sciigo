@@ -48,11 +48,9 @@ Template.formMessage.events = {
       if (page) {
         message.page = page;
       }
-      Meteor.call("create_message", message, function (error, messageId) {
-        if (!error) messageBox.focus();
-      });
-      messageBox.val('');
+      Meteor.call("create_message", message);
     }
+    messageBox.val('').focus();
   }
 };
 
@@ -82,14 +80,14 @@ Meteor.autosubscribe(function () {
 /* backbone router */
 var sciigoRouter = Backbone.Router.extend({
   routes:{
-    '':'main',
+    '':'getPage',
     'page/:page':'getPage'
   },
-  main:function () {
-    Session.set('page', '');
-  },
   getPage:function (page) {
-    Session.set('page', decodeURIComponent(page));
+    page = !page ? '' : page;
+    if (!Session.equals('page', decodeURIComponent(page))) {
+      Session.set('page', decodeURIComponent(page));
+    }
   },
   setPage:function (page) {
     Session.set('page', page);
