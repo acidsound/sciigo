@@ -1,0 +1,14 @@
+{
+  "name":"server",
+  "version":"0.0.0",
+  "description":"sciigo server modules",
+  "dependencies":{
+    "moment":"~1.7.2"
+  },
+  "devDependencies":{},
+  "scripts":{
+  },
+  "repository":"",
+  "author":"appsoulute",
+  "license":"BSD"
+}

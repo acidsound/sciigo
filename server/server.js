@@ -1,9 +1,14 @@
 Meteor.startup(function () {
+  // server side require
+  var require = __meteor_bootstrap__.require;
+  var path = require('path');
+  var moment = require(path.resolve(".") + '/tests/server/node_modules/moment');
+
   // code to run on server at startup
   startTime = Date.now();
   ServerTime.insert({'startTime':startTime});
   console.log('server initiated at %s.',
-    (new Date(startTime)).toISOString()
+    moment(startTime).format('YYYY/MM/DD HH:mm:ss')
   );
   console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
   var isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
@@ -18,6 +23,8 @@ Meteor.startup(function () {
         if (msg.page) {
           row.page = msg.page;
         }
+        // simulate sleep
+        for (var t = Date.now(); Date.now() < t + 2000;);
         return Messages.insert(row);
       }
       return null;
@@ -36,11 +43,13 @@ Meteor.startup(function () {
   }
 
   Meteor.publish('messages', function (page) {
+    var collection = [];
     if (page) {
-      return Messages.find({"page":page}, {sort:{createTime:-1}});
+      collection = Messages.find({"page":page}, {sort:{createTime:-1}});
     } else {
-      return Messages.find({}, {sort:{createTime:-1}});
+      collection = Messages.find({}, {sort:{createTime:-1}});
     }
+    return collection;
   });
 
   Meteor.publish('serverTime', function () {
