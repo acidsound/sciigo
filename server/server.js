@@ -2,9 +2,13 @@ Meteor.startup(function () {
   // server side require
   var require = __meteor_bootstrap__.require;
   var path = require('path');
-  var moment = require(path.resolve(".") + '/tests/server/node_modules/moment');
+  var base = path.resolve('.');
+  var isBundle = path.existsSync(base + '/bundle');
+  console.log('deploy mode: %s', isBundle ? 'bundle' : 'meteor');
+  var modulePath = base + (isBundle ? '/bundle/static' : '/public') + '/node_modules';
 
   // code to run on server at startup
+  var moment = require(modulePath + '/moment');
   startTime = Date.now();
   ServerTime.insert({'startTime':startTime});
   console.log('server initiated at %s.',
