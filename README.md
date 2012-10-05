@@ -10,6 +10,7 @@ Sciigo means in esperanto "message".
 1. git clone https://github.com/acidsound/sciigo.git
 1. cd sciigo
 1. npm install ./public
+1. copy /server/config.example.js to /server/config.js and fix it.
 1. meteor run -or- meteor --production
 1. http://localhost:3000
 
