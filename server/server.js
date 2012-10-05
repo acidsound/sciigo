@@ -14,8 +14,8 @@ Meteor.startup(function () {
   console.log('server initiated at %s.',
     moment(startTime).format('YYYY/MM/DD HH:mm:ss')
   );
-  console.log('%s Mode is running.', __meteor_runtime_config__.ROOT_URL);
-  var isTest = __meteor_runtime_config__.ROOT_URL === 'http://localhost:3000';
+  var rootURL = __meteor_runtime_config__.ROOT_URL;
+  console.log('%s Mode is running.', rootURL);
   Meteor.methods({
     "create_message":function (msg) {
       if (!!msg.message) {
@@ -40,11 +40,14 @@ Meteor.startup(function () {
   });
 
   /* Meteor.accounts -> Accounts 로 변경 */
-  if (!Accounts.configuration.find().count()) {
-    config[isTest ? "test" : "prod"].services.forEach(function (service) {
-      console.dir(service);
-      Accounts.configuration.insert(service);
-    });
+  Accounts.configuration.remove({});
+  for (var conf in config) {
+    if (conf === rootURL) {
+      config[conf].services.forEach(function (service) {
+        console.dir(service);
+        Accounts.configuration.insert(service);
+      });
+    }
   }
 
   Meteor.publish('messages', function (page) {
