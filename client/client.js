@@ -1,3 +1,8 @@
+const PAGE_LIMIT = 30;
+Meteor.startup(function () {
+  Session.set('limit', PAGE_LIMIT);
+});
+
 Template.head.events = {
   'click .brand':function () {
     Router.setPage('');
@@ -12,7 +17,7 @@ Template.head.events = {
 };
 
 Template.main.startTime = function () {
-  var stime;
+  var stime = {startTime:0};
   try {
     stime = ServerTime.findOne();
   } catch (e) {
@@ -28,7 +33,8 @@ Template.main.ROOT_URL = function () {
 };
 
 Template.main.messages = function () {
-  return Messages.find({}, {sort:{createTime:-1}}).map(function (message) {
+  msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
+  return msg.slice(0, Session.get('limit')).map(function (message) {
     if (Meteor.user()) {
       message.userType = message.userName === Meteor.user().profile.name ? 'success' : '';
     }
@@ -37,17 +43,24 @@ Template.main.messages = function () {
   });
 };
 
+Template.main.hasMore = function () {
+  return Session.get('limit') < Messages.find().count();
+};
+
 Template.main.rendered = function () {
   $('article ul li').removeClass('hidden').each(function (k, v) {
     Meteor.setTimeout(function () {
       $(v).removeClass('future');
-    }, 30 * k);
+    }, 10 * k);
   })
-}
+};
 
 Template.main.events = {
   'click .page':function () {
     Router.setPage(this.page);
+  },
+  'click #more':function () {
+    Session.set('limit', Session.get('limit') + PAGE_LIMIT);
   }
 };
 
@@ -86,7 +99,7 @@ var logout = function () {
 
 backToTop = function () {
   $('body,html').animate({scrollTop:0}, 400, 'swing');
-}
+};
 
 Template.login.events = {
   'click #logout':logout,
@@ -107,6 +120,7 @@ var sciigoRouter = Backbone.Router.extend({
     ':menu':'getMenu'
   },
   getPage:function (page) {
+    Session.set('limit', PAGE_LIMIT);
     page = !page ? '' : page;
     if (!Session.equals('page', decodeURIComponent(page))) {
       Session.set('page', decodeURIComponent(page));
@@ -116,6 +130,7 @@ var sciigoRouter = Backbone.Router.extend({
     }
   },
   setPage:function (page) {
+    Session.set('limit', PAGE_LIMIT);
     Session.set('page', page);
     this.navigate(page ? '/page/' + page : '', true);
     backToTop();

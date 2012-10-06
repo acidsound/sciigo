@@ -102,6 +102,13 @@
           <div class="span2 timeago">{{timeAgo}}</div>
         </li>
         {{/each}}
+        {{#if hasMore}}
+        <li class="row">
+          <div class="span4"></div>
+          <button class="btn span4 center" id="more">More</button>
+          <div class="span4"></div>
+        </li>
+        {{/if}}
       </ul>
     </article>
   </div>
