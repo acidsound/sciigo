@@ -63,7 +63,7 @@ Template.main.events = {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
   },
   'click .myBoo':function(){
-      Meteor.call("setMyBoo", {rowid :this._id, boo : ""+(parseInt(this.myBoo) + 1)});
+      Meteor.call("setMyBoo", {rowid :this._id});
   }
 };
 

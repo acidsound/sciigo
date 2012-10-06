@@ -23,7 +23,7 @@ Meteor.startup(function () {
           userName:msg.user.profile.name,
           message:msg.message,
           createTime:Date.now(),
-          myBoo : "0"
+          myBoo : 0
         };
         if (msg.page) {
           row.page = msg.page;
@@ -39,7 +39,7 @@ Meteor.startup(function () {
       return Messages.find(page ? {'page':page} : {}).count();
     },
     "setMyBoo":function (msg){
-      return Messages.update({_id:msg.rowid},{$set:{myBoo:msg.boo}});
+      return Messages.update({_id:msg.rowid},{$inc:{myBoo:1}});
     }
   });
 
