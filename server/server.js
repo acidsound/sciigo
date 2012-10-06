@@ -22,8 +22,7 @@ Meteor.startup(function () {
         var row = {
           userName:msg.user.profile.name,
           message:msg.message,
-          createTime:Date.now(),
-          myBoo : 0
+          createTime:Date.now()
         };
         if (msg.page) {
           row.page = msg.page;
@@ -38,8 +37,17 @@ Meteor.startup(function () {
     "getCount":function (page) {
       return Messages.find(page ? {'page':page} : {}).count();
     },
-    "setMyBoo":function (msg){
-      return Messages.update({_id:msg.rowid},{$inc:{myBoo:1}});
+    "setMyBoo":function (arg) {
+      var msg = arg.msg;
+      var user = arg.user;
+      msg.myboo = msg.myboo || [];
+      if (!msg.myboo.some(function (s) {
+        return user._id === s._id
+      })) {
+        msg.myboo.push(user);
+        return Messages.update({_id:msg._id}, msg);
+      }
+      return arg.msg;
     }
   });
 

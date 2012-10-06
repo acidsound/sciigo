@@ -62,8 +62,8 @@ Template.main.events = {
   'click #more':function () {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
   },
-  'click .myBoo':function(){
-      Meteor.call("setMyBoo", {rowid :this._id});
+  'click .myBoo':function () {
+    Meteor.call("setMyBoo", {msg:this, user:Meteor.user()});
   }
 };
 
@@ -163,6 +163,10 @@ Handlebars.registerHelper('menu', function () {
 
 Handlebars.registerHelper('isLogin', function () {
   return Meteor.user() && Meteor.user().profile;
+});
+
+Handlebars.registerHelper('count', function (array) {
+  return typeof array === 'object' ? array.length : '';
 });
 
 /* automap click event to touchstart */
