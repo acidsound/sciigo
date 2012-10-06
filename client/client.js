@@ -12,7 +12,14 @@ Template.head.events = {
 };
 
 Template.main.startTime = function () {
-  var stime = ServerTime.findOne();
+  var stime;
+  try {
+    stime = ServerTime.findOne();
+  } catch (e) {
+    // IEFix
+    // TODO : 서버 타임은 아무래도 이대론 안된다고 봄
+    stime.startTime = Date.now();
+  }
   return stime ? moment(stime.startTime).format('YYYY/MM/DD HH:mm:ss') : '';
 };
 
@@ -145,10 +152,14 @@ for (tpl in Template) {
   var obj = Template[tpl];
   if (obj.events && (typeof obj.events === 'object')) {
     for (event in obj.events) {
-      var args = event.split(' ');
-      if (args[0] === 'click') {
-        args[0] = 'touchend';
-        obj.events[args.join(' ')] = obj.events[event];
+      try {
+        var args = event.split(' ');
+        if (args[0] === 'click') {
+          args[0] = 'touchend';
+          obj.events[args.join(' ')] = obj.events[event];
+        }
+      } catch (e) {
+        // IE Fix : in split
       }
     }
   }
