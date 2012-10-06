@@ -8,12 +8,16 @@
 
 <body>
 {{> head}}
+{{#unless menu}}
 <div class="homePage">
-    {{> main}}
+  {{> main}}
 </div>
+{{/unless}}
+{{#if menu about}}
 <div class="aboutPage">
-    {{> about}}
+  {{> about}}
 </div>
+{{/if}}
 </body>
 
 <template name="head">
@@ -29,8 +33,8 @@
         {{> login}}
         <div class="nav-collapse">
           <ul class="nav">
-            <li class="home active"><a>Home</a></li>
-            <li class="about"><a href="#">about</a></li>
+            <li class="home {{#unless menu}}active{{/unless}}"><a>Home</a></li>
+            <li class="about {{#if menu}}active{{/if}}"><a href="javascript:;">about</a></li>
           </ul>
         </div>
         <!--/.nav-collapse -->
@@ -103,24 +107,25 @@
   </div>
 </template>
 <template name="about">
-    <div class="container">
-        <div class="well">
-            <p><strong>Sciigo</strong></p>
-            <p>robust and clean SNS project. Sciigo means in esperanto "message".</p>
+  <div class="container">
+    <div class="well">
+      <p><strong>Sciigo</strong></p>
 
-            <p><strong>Prerequisites</strong></p>
+      <p>robust and clean SNS project. Sciigo means in esperanto "message".</p>
 
-            Meteor auth branch
-            Install & Run
+      <p><strong>Prerequisites</strong></p>
 
-            git clone https://github.com/acidsound/sciigo.git
-            cd sciigo
-            npm install ./public
-            copy /server/config.example.js to /server/config.js and fix it.
-            meteor run -or- meteor --production
-            http://localhost:3000
-        </div>
+      Meteor auth branch
+      Install & Run
+
+      git clone https://github.com/acidsound/sciigo.git
+      cd sciigo
+      npm install ./public
+      copy /server/config.example.js to /server/config.js and fix it.
+      meteor run -or- meteor --production
+      http://localhost:3000
     </div>
+  </div>
 </template>
 <template name="formMessage">
   <li class="row">

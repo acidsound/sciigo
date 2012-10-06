@@ -1,18 +1,13 @@
 Template.head.events = {
   'click .brand':function () {
     Router.setPage('');
+    Router.setMenu('');
   },
-  'click .about' : function(){
-      $('.about').addClass('active');
-      $('.home').removeClass('active');
-      $('.homePage').hide();
-      $('.aboutPage').show();
+  'click .about':function () {
+    Router.setMenu('about');
   },
-  'click .home' : function(){
-      $('.home').addClass('active');
-      $('.about').removeClass('active');
-      $('.aboutPage').hide();
-      $('.homePage').show();
+  'click .home':function () {
+    Router.setMenu('');
   }
 };
 
@@ -101,18 +96,29 @@ Meteor.autosubscribe(function () {
 var sciigoRouter = Backbone.Router.extend({
   routes:{
     '':'getPage',
-    'page/:page':'getPage'
+    'page/:page':'getPage',
+    ':menu':'getMenu'
   },
   getPage:function (page) {
     page = !page ? '' : page;
     if (!Session.equals('page', decodeURIComponent(page))) {
       Session.set('page', decodeURIComponent(page));
     }
+    if (!page) {
+      Session.set('menu', '');
+    }
   },
   setPage:function (page) {
     Session.set('page', page);
     this.navigate(page ? '/page/' + page : '', true);
     backToTop();
+  },
+  getMenu:function (menu) {
+    menu = menu ? menu : '';
+    Session.set('menu', menu);
+  },
+  setMenu:function (menu) {
+    Session.set('menu', menu);
   }
 });
 
@@ -124,6 +130,10 @@ Meteor.startup(function () {
 /* helpers */
 Handlebars.registerHelper('pageName', function () {
   return Session.get('page');
+});
+
+Handlebars.registerHelper('menu', function () {
+  return Session.get('menu');
 });
 
 Handlebars.registerHelper('isLogin', function () {
