@@ -1,6 +1,18 @@
 Template.head.events = {
   'click .brand':function () {
     Router.setPage('');
+  },
+  'click .about' : function(){
+      $('.about').addClass('active');
+      $('.home').removeClass('active');
+      $('.homePage').hide();
+      $('.aboutPage').show();
+  },
+  'click .home' : function(){
+      $('.home').addClass('active');
+      $('.about').removeClass('active');
+      $('.aboutPage').hide();
+      $('.homePage').show();
   }
 };
 
