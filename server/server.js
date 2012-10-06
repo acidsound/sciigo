@@ -20,7 +20,7 @@ Meteor.startup(function () {
     "create_message":function (msg) {
       if (!!msg.message) {
         var row = {
-          userName:msg.user.profile.name,
+          user:msg.user,
           message:msg.message,
           createTime:Date.now()
         };
