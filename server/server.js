@@ -38,13 +38,13 @@ Meteor.startup(function () {
       return Messages.find(page ? {'page':page} : {}).count();
     },
     "setMyBoo":function (arg) {
-      var msg = arg.msg;
+      var msg = Messages.findOne({_id:arg.id});
       var user = arg.user;
-      msg.myboo = msg.myboo || [];
-      if (!msg.myboo.some(function (s) {
+      msg.myBoo = msg.myBoo || [];
+      if (!msg.myBoo.some(function (s) {
         return user._id === s._id
       })) {
-        msg.myboo.push(user);
+        msg.myBoo.push(user);
         return Messages.update({_id:msg._id}, msg);
       }
       return arg.msg;

@@ -63,7 +63,7 @@ Template.main.events = {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
   },
   'click .myBoo':function () {
-    Meteor.call("setMyBoo", {msg:this, user:Meteor.user()});
+    Meteor.call("setMyBoo", {id:this._id, user:Meteor.user()});
   }
 };
 
