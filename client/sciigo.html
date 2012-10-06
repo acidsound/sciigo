@@ -91,15 +91,16 @@
           </div>
           <div class="span8">
             <span>{{{message}}}</span>
-            {{#unless pageName}}
+              {{#unless pageName}}
             {{#if page}}
           <span class="pull-right">
             <label class="label label-info page">{{page}}</label>
           </span>
             {{/if}}
             {{/unless}}
+              <span class="myBoo pull-right"><i class="icon-thumbs-down"></i>{{myBoo}}</span>
           </div>
-          <div class="span2 timeago">{{timeAgo}}</div>
+            <div class="span2 timeago">{{timeAgo}}</div>
         </li>
         {{/each}}
         {{#if hasMore}}

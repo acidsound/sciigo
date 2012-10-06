@@ -61,6 +61,9 @@ Template.main.events = {
   },
   'click #more':function () {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
+  },
+  'click .myBoo':function(){
+      Meteor.call("setMyBoo", {rowid :this._id, boo : ""+(parseInt(this.myBoo) + 1)});
   }
 };
 
