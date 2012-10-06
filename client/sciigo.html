@@ -72,25 +72,29 @@
       {{#if isLogin}}
       {{> formMessage}}
       {{/if}}
-      {{#each messages}}
-      <li class="row">
-        <div class="span2">
-          <label class="label label-{{userType}}">{{userName}}}</label>
-        </div>
-        <div class="span8">
-          <span>{{{message}}}</span>
-          {{#unless pageName}}
-          {{#if page}}
+    </ul>
+    <article>
+      <ul id="posts" class="twirl">
+        {{#each messages}}
+        <li class="row future hidden">
+          <div class="span2">
+            <label class="label label-{{userType}}">{{userName}}}</label>
+          </div>
+          <div class="span8">
+            <span>{{{message}}}</span>
+            {{#unless pageName}}
+            {{#if page}}
           <span class="pull-right">
             <label class="label label-info page">{{page}}</label>
           </span>
-          {{/if}}
-          {{/unless}}
-        </div>
-        <div class="span2 timeago">{{timeAgo}}</div>
-      </li>
-      {{/each}}
-    </ul>
+            {{/if}}
+            {{/unless}}
+          </div>
+          <div class="span2 timeago">{{timeAgo}}</div>
+        </li>
+        {{/each}}
+      </ul>
+    </article>
   </div>
 </template>
 

@@ -23,6 +23,14 @@ Template.main.messages = function () {
   });
 };
 
+Template.main.rendered = function () {
+  $('article ul li').removeClass('hidden').each(function (k, v) {
+    Meteor.setTimeout(function () {
+      $(v).removeClass('future');
+    }, 30 * k);
+  })
+}
+
 Template.main.events = {
   'click .page':function () {
     Router.setPage(this.page);
