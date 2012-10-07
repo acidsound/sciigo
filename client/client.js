@@ -167,10 +167,6 @@ Handlebars.registerHelper('isLogin', function () {
   return Meteor.user() && Meteor.user().profile;
 });
 
-Handlebars.registerHelper('count', function (array) {
-  return typeof array === 'object' ? array.length : '';
-});
-
 /* automap click event to touchstart */
 for (tpl in Template) {
   var obj = Template[tpl];
