@@ -36,7 +36,9 @@ Template.main.messages = function () {
   msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
   return msg.slice(0, Session.get('limit')).map(function (message) {
     if (Meteor.user()) {
-      message.userType = message.userName === Meteor.user().profile.name ? 'success' : '';
+      if (message.user) {
+        message.userType = message.user._id === Meteor.user()._id ? 'success' : '';
+      }
     }
     message.timeAgo = moment(message.createTime).fromNow();
     return message;
