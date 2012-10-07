@@ -1,12 +1,12 @@
-Meteor.startup(function () {
-  // server side require
-  var require = __meteor_bootstrap__.require;
-  var path = require('path');
-  var base = path.resolve('.');
-  var isBundle = path.existsSync(base + '/bundle');
-  console.log('deploy mode: %s', isBundle ? 'bundle' : 'meteor');
-  var modulePath = base + (isBundle ? '/bundle/static' : '/public') + '/node_modules';
+// server side require
+var require = __meteor_bootstrap__.require;
+var path = require('path');
+var base = path.resolve('.');
+var isBundle = path.existsSync(base + '/bundle');
+console.log('deploy mode: %s', isBundle ? 'bundle' : 'meteor');
+var modulePath = base + (isBundle ? '/bundle/static' : '/public') + '/node_modules';
 
+Meteor.startup(function () {
   // code to run on server at startup
   var moment = require(modulePath + '/moment');
   startTime = Date.now();
