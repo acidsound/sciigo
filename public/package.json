@@ -3,8 +3,7 @@
   "version":"0.0.0",
   "description":"sciigo server modules",
   "dependencies":{
-    "moment":"~1.7.2",
-    "jsdom":"0.2.15"
+    "moment":"~1.7.2"
   },
   "devDependencies":{},
   "scripts":{
