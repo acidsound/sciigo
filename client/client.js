@@ -91,6 +91,28 @@ Template.formMessage.events = {
       Meteor.call("create_message", message);
     }
     messageBox.val('').focus();
+  },
+  'keydown input#inputMessage':function () {
+    $("#checkResult").removeClass('hidden').addClass('hidden');
+    Meteor.call('spellCheck', $('input#inputMessage').val(), function (err, result) {
+      if (!err) {
+        if (!result.modified) {
+          $("#checkResult").removeClass('hidden');
+        }
+      }
+    });
+  },
+  'click #spellcheckor':function () {
+    $("#checkResult").removeClass('hidden').addClass('hidden');
+    Meteor.call('spellCheck', $('input#inputMessage').val(), function (err, result) {
+      if (!err) {
+        if (result.modified) {
+          $('input#inputMessage').val(result.modified).focus();
+        } else {
+          $("#checkResult").removeClass('hidden');
+        }
+      }
+    });
   }
 };
 
