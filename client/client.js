@@ -92,16 +92,6 @@ Template.formMessage.events = {
     }
     messageBox.val('').focus();
   },
-  'keydown input#inputMessage':function () {
-    $("#checkResult").removeClass('hidden').addClass('hidden');
-    Meteor.call('spellCheck', $('input#inputMessage').val(), function (err, result) {
-      if (!err) {
-        if (!result.modified) {
-          $("#checkResult").removeClass('hidden');
-        }
-      }
-    });
-  },
   'click #spellcheckor':function () {
     $("#checkResult").removeClass('hidden').addClass('hidden');
     Meteor.call('spellCheck', $('input#inputMessage').val(), function (err, result) {
