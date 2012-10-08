@@ -69,13 +69,6 @@ Template.main.events = {
   }
 };
 
-// salt for preserve input element
-Template.formMessage.preserve({
-  'input[id]':function (node) {
-    return node.id;
-  }
-});
-
 Template.formMessage.events = {
   'submit':function () {
     var messageBox = $('input#inputMessage');
