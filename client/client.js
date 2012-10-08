@@ -40,7 +40,6 @@ Template.main.messages = function () {
         message.userType = message.user._id === Meteor.user()._id ? 'success' : '';
       }
     }
-    message.timeAgo = moment(message.createTime).fromNow();
     return message;
   });
 };

@@ -90,7 +90,7 @@
             <label class="label label-{{userType}}">{{user.profile.name}}}</label>
           </div>
           <div class="span8">
-            <span>{{{message}}}</span>
+            {{{message}}}
             {{#unless pageName}}
             {{#if page}}
             <span class="pull-right">
@@ -100,7 +100,7 @@
             {{/unless}}
             <span class="myBoo pull-right">{{count myBoo}}<i class="icon-thumbs-down"></i></span>
           </div>
-          <div class="span2 timeago">{{timeAgo}}</div>
+          <div class="span2 timeago">{{timeAgo createTime}}</div>
         </li>
         {{/each}}
         {{#if hasMore}}
