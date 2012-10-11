@@ -99,7 +99,7 @@ Template.formMessage.events = {
 };
 
 var loginWithFacebook = function () {
-  Meteor.loginWithFacebook();
+  Meteor.loginWithFacebook(ServiceConfiguration.facebook);
 };
 
 var logout = function () {
