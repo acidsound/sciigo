@@ -1,3 +1,17 @@
+@charset 'utf-8';
+@font-face {
+  font-family: 'WebNamumGothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/font/NanumGothic.eot);
+  src: url(/font/NanumGothic.eot?#iefix) format('embedded-opentype'), url(/font/NanumGothic.woff) format('woff');
+  unicode-range: U +1100 -11 FF, U +3130 -318 F, U + AC00-D7A3;
+}
+
+body, input {
+  font-family: "WebNamumGothic", "Helvetica Neue", sans-serif;
+}
+
 /* CSS declarations go here */
 li {
   list-style: none;
