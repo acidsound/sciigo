@@ -40,12 +40,12 @@ Meteor.startup(function () {
   });
 
   /* Meteor.accounts -> Accounts 로 변경 */
-  Accounts.configuration.remove({});
+  Accounts.loginServiceConfiguration.remove({});
   for (var conf in config) {
     if (conf === rootURL) {
       config[conf].services.forEach(function (service) {
         console.dir(service);
-        Accounts.configuration.insert(service);
+        Accounts.loginServiceConfiguration.insert(service);
       });
     }
   }
