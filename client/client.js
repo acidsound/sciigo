@@ -1,4 +1,4 @@
-const PAGE_LIMIT = 30;
+var PAGE_LIMIT = 30;
 Meteor.startup(function () {
   Session.set('limit', PAGE_LIMIT);
 });
@@ -34,7 +34,7 @@ Template.main.ROOT_URL = function () {
 
 Template.main.messages = function () {
   msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
-  return msg.slice(0, Session.get('limit')).map(function (message) {
+  return _.map(msg.slice(0, Session.get('limit')), function (message) {
     if (Meteor.user()) {
       if (message.user) {
         message.userType = message.user._id === Meteor.user()._id ? 'success' : '';
@@ -175,16 +175,16 @@ Handlebars.registerHelper('isLogin', function () {
 for (tpl in Template) {
   var obj = Template[tpl];
   if (obj.events && (typeof obj.events === 'object')) {
-    for (event in obj.events) {
+    _.each(obj.events, function (key, value) {
       try {
-        var args = event.split(' ');
+        var args = key.split(' ');
         if (args[0] === 'click') {
           args[0] = 'touchend';
-          obj.events[args.join(' ')] = obj.events[event];
+          obj.events[args.join(' ')] = value;
         }
       } catch (e) {
         // IE Fix : in split
       }
-    }
+    });
   }
 }
