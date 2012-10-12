@@ -172,12 +172,11 @@ Handlebars.registerHelper('isLogin', function () {
 });
 
 /* automap click event to touchstart */
-for (tpl in Template) {
-  var obj = Template[tpl];
+_.each(Template, function (obj) {
   if (obj.events && (typeof obj.events === 'object')) {
-    _.each(obj.events, function (key, value) {
+    _.each(obj.events, function (value, key) {
       try {
-        var args = key.split(' ');
+        var args = key.split(/ /);
         if (args[0] === 'click') {
           args[0] = 'touchend';
           obj.events[args.join(' ')] = value;
@@ -187,4 +186,4 @@ for (tpl in Template) {
       }
     });
   }
-}
+});
