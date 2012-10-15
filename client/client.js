@@ -64,7 +64,12 @@ Template.main.events = {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
   },
   'click .myBoo':function () {
-    Meteor.call("setMyBoo", {id:this._id, user:Meteor.user()});
+    if (Meteor.user()) {
+      Meteor.call("setMyBoo", {id:this._id, user:Meteor.user()});
+    }
+  },
+  'click .timeago':function () {
+    Router.setPost(this._id);
   }
 };
 
@@ -98,6 +103,13 @@ Template.formMessage.events = {
   }
 };
 
+// postDetail
+Template.postDetail.messages = function () {
+  return Messages.findOne({_id:Session.get('postId')});
+};
+
+Template.postDetail.events = Template.main.events;
+
 var loginWithFacebook = function () {
   Meteor.loginWithFacebook(ServiceConfiguration.facebook);
 };
@@ -126,6 +138,7 @@ var sciigoRouter = Backbone.Router.extend({
   routes:{
     '':'getPage',
     'page/:page':'getPage',
+    'post/:post':'getPost',
     ':menu':'getMenu'
   },
   getPage:function (page) {
@@ -139,8 +152,7 @@ var sciigoRouter = Backbone.Router.extend({
     }
   },
   setPage:function (page) {
-    Session.set('limit', PAGE_LIMIT);
-    Session.set('page', page);
+    this.getPage(page);
     this.navigate(page ? '/page/' + page : '', true);
     backToTop();
   },
@@ -149,7 +161,17 @@ var sciigoRouter = Backbone.Router.extend({
     Session.set('menu', menu);
   },
   setMenu:function (menu) {
-    Session.set('menu', menu);
+    this.getMenu(menu);
+    this.navigate('/' + menu);
+  },
+  getPost:function (postId) {
+    Session.set('menu', 'postDetail');
+    Session.set('postId', postId);
+  },
+  setPost:function (postId) {
+    this.getPost(postId);
+    this.navigate('/post/' + postId);
+    backToTop();
   }
 });
 
@@ -165,6 +187,10 @@ Handlebars.registerHelper('pageName', function () {
 
 Handlebars.registerHelper('menu', function () {
   return Session.get('menu');
+});
+
+Handlebars.registerHelper('isMenu', function (menu) {
+  return Session.equals('menu', menu);
 });
 
 Handlebars.registerHelper('isLogin', function () {

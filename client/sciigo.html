@@ -19,10 +19,13 @@
   {{> main}}
 </div>
 {{/unless}}
-{{#if menu about}}
+{{#if isMenu "about"}}
 <div class="aboutPage">
   {{> about}}
 </div>
+{{/if}}
+{{#if isMenu "postDetail"}}
+{{> postDetail}}
 {{/if}}
 </body>
 
@@ -160,4 +163,32 @@
       </div>
     </form>
   </li>
+</template>
+
+<template name="postDetail">
+  <div class="homePage">
+    <div class="container">
+      <article>
+        {{#with messages}}
+        <ul id="posts" class="twirl">
+          <li class="row">
+            <div class="span2">
+              <label class="label label-{{userType}}">{{user.profile.name}}}</label>
+            </div>
+            <div class="span8">
+              {{{message}}}
+              {{#if page}}
+            <span class="pull-right">
+              <label class="label label-info page">{{page}}</label>
+            </span>
+              {{/if}}
+              <span class="myBoo pull-right">{{count myBoo}}<i class="icon-thumbs-down"></i></span>
+            </div>
+            <div class="span2 timeago">{{timeAgo createTime}}</div>
+          </li>
+        </ul>
+        {{/with}}
+      </article>
+    </div>
+  </div>
 </template>
