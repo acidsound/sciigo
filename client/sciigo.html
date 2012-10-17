@@ -76,11 +76,6 @@
 
 <template name="main">
   <div class="container">
-    <div class="well">
-      <p>이 서버는 {{ROOT_URL}}에서 동작 중입니다.</p>
-
-      <p>서버 오픈 시각 : {{startTime}}</p>
-    </div>
     {{#if pageName}}
     <h3>
       {{pageName}}'s Page
@@ -92,7 +87,7 @@
       {{/if}}
     </ul>
     <article>
-      <ul id="posts" class="twirl">
+      <ul id="posts" class="flip">
         {{#each messages}}
         <li class="row future hidden">
           <div class="span2">
@@ -126,6 +121,11 @@
 
 <template name="about">
   <div class="container">
+    <div class="well">
+      <p>이 서버는 {{ROOT_URL}}에서 동작 중입니다.</p>
+
+      <p>서버 오픈 시각 : {{startTime}}</p>
+    </div>
     <div class="well">
       <p><strong>Sciigo</strong></p>
 
@@ -170,7 +170,7 @@
     <div class="container">
       <article>
         {{#with messages}}
-        <ul id="post" class="twirl">
+        <ul id="post" class="flip">
           <li class="row">
             <div class="span2">
               <label class="label label-{{userType}}">{{user.profile.name}}}</label>

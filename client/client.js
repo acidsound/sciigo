@@ -16,22 +16,6 @@ Template.head.events = {
   }
 };
 
-Template.main.startTime = function () {
-  var stime = {startTime:0};
-  try {
-    stime = ServerTime.findOne();
-  } catch (e) {
-    // IEFix
-    // TODO : 서버 타임은 아무래도 이대론 안된다고 봄
-    stime.startTime = Date.now();
-  }
-  return stime ? moment(stime.startTime).format('YYYY/MM/DD HH:mm:ss') : '';
-};
-
-Template.main.ROOT_URL = function () {
-  return __meteor_runtime_config__.ROOT_URL;
-};
-
 Template.main.messages = function () {
   msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
   return _.map(msg.slice(0, Session.get('limit')), function (message) {
@@ -71,6 +55,22 @@ Template.main.events = {
   'click .timeago':function () {
     Router.setPost(this._id);
   }
+};
+
+Template.about.startTime = function () {
+  var stime = {startTime:0};
+  try {
+    stime = ServerTime.findOne();
+  } catch (e) {
+    // IEFix
+    // TODO : 서버 타임은 아무래도 이대론 안된다고 봄
+    stime.startTime = Date.now();
+  }
+  return stime ? moment(stime.startTime).format('YYYY/MM/DD HH:mm:ss') : '';
+};
+
+Template.about.ROOT_URL = function () {
+  return __meteor_runtime_config__.ROOT_URL;
 };
 
 Template.formMessage.events = {
