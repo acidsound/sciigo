@@ -18,14 +18,7 @@ Template.head.events = {
 
 Template.main.messages = function () {
   msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
-  return _.map(msg.slice(0, Session.get('limit')), function (message) {
-    if (Meteor.user()) {
-      if (message.user) {
-        message.userType = message.user._id === Meteor.user()._id ? 'success' : '';
-      }
-    }
-    return message;
-  });
+  return msg.slice(0, Session.get('limit'));
 };
 
 Template.main.hasMore = function () {
@@ -221,6 +214,10 @@ Handlebars.registerHelper('isLogin', function () {
 
 Handlebars.registerHelper('alert', function () {
   return Session.get('alert');
+});
+
+Handlebars.registerHelper('userType', function () {
+  return this.user._id === Meteor.user()._id ? 'success' : '';
 });
 
 /* automap click event to touchstart */
