@@ -36,6 +36,32 @@ Meteor.startup(function () {
     },
     "getCount":function (page) {
       return Messages.find(page ? {'page':page} : {}).count();
+    },
+    "afterLogin":function () {
+      var currentUser = Meteor.user();
+      var retVal = null;
+      if (currentUser && currentUser.profile && !currentUser.profile.displayName) {
+        var userInfo = {};
+        if (currentUser.services) {
+          if (currentUser.services.facebook) {
+            var facebookId = currentUser.services.facebook.id;
+            var result = Meteor.http.call("GET", 'https://graph.facebook.com/' + facebookId);
+            _.extend(userInfo, {
+              profile:{
+                displayName:result.data.username,
+                photoSmall:'https://graph.facebook.com/' + facebookId + '/picture'
+              }
+            });
+            if (Meteor.users.find({"profile.displayName":userInfo.profile.displayName}).count()) {
+              retVal = userInfo.profile.displayName;
+              userInfo.profile.displayName = userInfo.profile.displayName + ".fb"
+            }
+          }
+        }
+        Meteor._debug('>>userInfo', userInfo);
+        Meteor.users.update(currentUser._id, {$set:userInfo});
+      }
+      return retVal;
     }
   });
 

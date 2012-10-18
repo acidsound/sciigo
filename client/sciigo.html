@@ -14,6 +14,9 @@
 
 <body>
 {{> head}}
+{{#if alert}}
+{{> alert}}
+{{/if}}
 {{#unless menu}}
 <div class="homePage">
   {{> main}}
@@ -55,11 +58,13 @@
 <template name="login">
   <div class="btn-group pull-right">
     {{#if currentUser}}
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-      <i class="icon-user"></i> {{currentUser.profile.name}}
+    <a class="btn dropdown-toggle" data-toggle="dropdown">
+      <i class="icon-user"></i> {{currentUser.profile.displayName}}
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
+      <li><a id="profile">Profile</a></li>
+      <li class="divider"></li>
       <li><a id="logout">Sign Out</a></li>
     </ul>
     {{else}}
@@ -91,7 +96,7 @@
         {{#each messages}}
         <li class="row future hidden">
           <div class="span2">
-            <label class="label label-{{userType}}">{{user.profile.name}}}</label>
+            <label class="label label-{{userType}}">{{user.profile.displayName}}}</label>
           </div>
           <div class="span8">
             {{{message}}}
@@ -150,7 +155,7 @@
     <form action="javascript:;">
       <div class="span2">
         <label class="label label-warning" for="inputMessage">
-          {{currentUser.profile.name}}
+          {{currentUser.profile.displayName}}
         </label>
       </div>
       <div class="span8">
@@ -173,7 +178,7 @@
         <ul id="post" class="flip">
           <li class="row">
             <div class="span2">
-              <label class="label label-{{userType}}">{{user.profile.name}}}</label>
+              <label class="label label-{{userType}}">{{user.profile.displayName}}}</label>
             </div>
             <div class="span8">
               {{{message}}}
@@ -192,3 +197,12 @@
     </div>
   </div>
 </template>
+<template name="alert">
+  <div class="container">
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      {{{alert}}}
+    </div>
+  </div>
+</template>
+

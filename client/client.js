@@ -110,8 +110,27 @@ Template.postDetail.messages = function () {
 
 Template.postDetail.events = Template.main.events;
 
+var afterLoginCallback = function (err) {
+  if (err) {
+  } else {
+    Meteor.call('afterLogin', function (err, result) {
+      if (result) {
+        Session.set('alert', result + ' 는 다른 사용자가 사용하고 있습니다.<br/>사용자명은 따로 Profile에서 수정하실 수 있습니다.');
+      } else {
+      }
+    });
+  }
+};
+
+Template.alert.event = {
+  'click button':function () {
+    Session.set('alert', '');
+  }
+};
+
+
 var loginWithFacebook = function () {
-  Meteor.loginWithFacebook(ServiceConfiguration.facebook);
+  Meteor.loginWithFacebook(ServiceConfiguration.facebook, afterLoginCallback);
 };
 
 var logout = function () {
@@ -124,6 +143,9 @@ backToTop = function () {
 
 Template.login.events = {
   'click #logout':logout,
+  'click #profile':function () {
+    Router.setPage(Meteor.user().profile.displayName);
+  },
   'click #loginFB':loginWithFacebook
 };
 
@@ -195,6 +217,10 @@ Handlebars.registerHelper('isMenu', function (menu) {
 
 Handlebars.registerHelper('isLogin', function () {
   return Meteor.user() && Meteor.user().profile;
+});
+
+Handlebars.registerHelper('alert', function () {
+  return Session.get('alert');
 });
 
 /* automap click event to touchstart */
