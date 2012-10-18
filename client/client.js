@@ -217,7 +217,7 @@ Handlebars.registerHelper('alert', function () {
 });
 
 Handlebars.registerHelper('userType', function () {
-  return this.user._id === Meteor.user()._id ? 'success' : '';
+  return Meteor.user().profile && this.user._id === Meteor.user()._id ? 'success' : '';
 });
 
 /* automap click event to touchstart */
