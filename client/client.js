@@ -109,7 +109,6 @@ var afterLoginCallback = function (err) {
     Meteor.call('afterLogin', function (err, result) {
       if (result) {
         Session.set('alert', result + ' 는 다른 사용자가 사용하고 있습니다.<br/>사용자명은 따로 Profile에서 수정하실 수 있습니다.');
-      } else {
       }
     });
   }
