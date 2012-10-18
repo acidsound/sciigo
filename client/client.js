@@ -5,14 +5,14 @@ Meteor.startup(function () {
 
 Template.head.events = {
   'click .brand':function () {
-    Router.setPage('');
-    Router.setMenu('');
+    Router.getPage('');
+    Router.getMenu('');
   },
   'click .about':function () {
-    Router.setMenu('about');
+    Router.getMenu('about');
   },
   'click .home':function () {
-    Router.setMenu('');
+    Router.getMenu('');
   }
 };
 
@@ -34,11 +34,14 @@ Template.main.rendered = function () {
 };
 
 Template.main.events = {
-  'click .page':function () {
-    Router.setPage(this.page);
-  },
   'click #more':function () {
     Session.set('limit', Session.get('limit') + PAGE_LIMIT);
+  }
+};
+
+Template.post.events = {
+  'click .page':function () {
+    Router.getPage(this.page);
   },
   'click .myBoo':function () {
     if (Meteor.user()) {
@@ -46,7 +49,7 @@ Template.main.events = {
     }
   },
   'click .timeago':function () {
-    Router.setPost(this._id);
+    Router.getPost(this._id);
   }
 };
 
@@ -96,12 +99,9 @@ Template.formMessage.events = {
   }
 };
 
-// postDetail
 Template.postDetail.messages = function () {
   return Messages.findOne({_id:Session.get('postId')});
 };
-
-Template.postDetail.events = Template.main.events;
 
 var afterLoginCallback = function (err) {
   if (err) {
@@ -121,7 +121,6 @@ Template.alert.event = {
   }
 };
 
-
 var loginWithFacebook = function () {
   Meteor.loginWithFacebook(ServiceConfiguration.facebook, afterLoginCallback);
 };
@@ -137,7 +136,7 @@ backToTop = function () {
 Template.login.events = {
   'click #logout':logout,
   'click #profile':function () {
-    Router.setPage(Meteor.user().profile.displayName);
+    Router.getPage(Meteor.user().profile.displayName);
   },
   'click #loginFB':loginWithFacebook
 };
@@ -158,33 +157,22 @@ var sciigoRouter = Backbone.Router.extend({
   },
   getPage:function (page) {
     Session.set('limit', PAGE_LIMIT);
+    Session.set('menu', '');
     page = !page ? '' : page;
     if (!Session.equals('page', decodeURIComponent(page))) {
       Session.set('page', decodeURIComponent(page));
     }
-    if (!page) {
-      Session.set('menu', '');
-    }
-  },
-  setPage:function (page) {
-    this.getPage(page);
     this.navigate(page ? '/page/' + page : '', true);
     backToTop();
   },
   getMenu:function (menu) {
     menu = menu ? menu : '';
     Session.set('menu', menu);
-  },
-  setMenu:function (menu) {
-    this.getMenu(menu);
     this.navigate('/' + menu);
   },
   getPost:function (postId) {
     Session.set('menu', 'postDetail');
     Session.set('postId', postId);
-  },
-  setPost:function (postId) {
-    this.getPost(postId);
     this.navigate('/post/' + postId);
     backToTop();
   }
