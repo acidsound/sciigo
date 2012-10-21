@@ -17,20 +17,6 @@ Meteor.startup(function () {
   var rootURL = __meteor_runtime_config__.ROOT_URL;
   console.log('%s Mode is running.', rootURL);
   Meteor.methods({
-    "create_message":function (msg) {
-      if (!!msg.message) {
-        var row = {
-          user:msg.user,
-          message:msg.message,
-          createTime:Date.now()
-        };
-        if (msg.page) {
-          row.page = msg.page;
-        }
-        return Messages.insert(row);
-      }
-      return null;
-    },
     "getServerStartTime":function () {
       return Date.now();
     },

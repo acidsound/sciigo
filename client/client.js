@@ -25,13 +25,13 @@ Template.main.hasMore = function () {
   return Session.get('limit') < Messages.find().count();
 };
 
-Template.main.rendered = function () {
-  $('article ul li').removeClass('hidden').each(function (k, v) {
-    Meteor.setTimeout(function () {
-      $(v).removeClass('future');
-    }, 10 * k);
-  })
-};
+//Template.main.rendered = function () {
+//  $('article ul li').removeClass('hidden').each(function (k, v) {
+//    Meteor.setTimeout(function () {
+//      $(v).removeClass('future');
+//    }, 10 * k);
+//  })
+//};
 
 Template.main.events = {
   'click #more':function () {
