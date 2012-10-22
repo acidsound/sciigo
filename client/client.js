@@ -17,12 +17,11 @@ Template.head.events = {
 };
 
 Template.main.messages = function () {
-  msg = Messages.find({}, {sort:{createTime:-1}}).fetch();
-  return msg.slice(0, Session.get('limit'));
+  return Messages.find({}, {sort:{createTime:-1}});
 };
 
 Template.main.hasMore = function () {
-  return Session.get('limit') < Messages.find().count();
+  return Session.get('limit') <= Messages.find().count();
 };
 
 //Template.main.rendered = function () {
@@ -142,7 +141,7 @@ Template.login.events = {
 
 /* subscribe */
 Meteor.autosubscribe(function () {
-  Meteor.subscribe('messages', Session.get('page'));
+  Meteor.subscribe('messages', Session.get('page'), Session.get('limit') || PAGE_LIMIT);
   Meteor.subscribe('serverTime');
 });
 

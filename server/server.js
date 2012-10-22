@@ -62,14 +62,12 @@ Meteor.startup(function () {
     }
   }
 
-  Meteor.publish('messages', function (page) {
-    var collection = [];
-    if (page) {
-      collection = Messages.find({"page":page}, {sort:{createTime:-1}});
-    } else {
-      collection = Messages.find({}, {sort:{createTime:-1}});
-    }
-    return collection;
+  Meteor.publish('messages', function (page, limit) {
+    result = Messages.find(
+      page ? {"page":page} : {},
+      { limit:limit, sort:{ createTime:-1 }}
+    );
+    return result;
   });
 
   Meteor.publish('serverTime', function () {
