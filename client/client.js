@@ -53,7 +53,7 @@ Template.post.events = {
 };
 
 // iframe (youtube, soundcloud 일때 preserve 적용)인 경우 preserve 적용. 렌더링 방지
-Template.post.preserve(['.message iframe']);
+Template.post.preserve(['.message iframe,embed']);
 
 Template.about.startTime = function () {
   var stime = {startTime:0};
